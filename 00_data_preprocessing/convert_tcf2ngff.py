@@ -8,7 +8,7 @@ import ome_zarr
 import ome_zarr.io
 import ome_zarr.writer
 import ome_zarr.format
-from utils import *
+from ..utils import *
 import os
 from TCFile import TCFile
 import numpy as np

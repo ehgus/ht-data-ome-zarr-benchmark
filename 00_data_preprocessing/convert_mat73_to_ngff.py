@@ -82,7 +82,7 @@ def calculate_translate(src_mat_path):
 
 
 import os
-from utils import configure_compression, configure_filters
+from ..utils import configure_compression, configure_filters
 # command-line handler
 def main():
     import argparse

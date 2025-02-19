@@ -17,7 +17,7 @@ import argparse
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
-from utils import *
+from ..utils import *
 import zarr
 import dask.array as da
 from dask.diagnostics import Profiler

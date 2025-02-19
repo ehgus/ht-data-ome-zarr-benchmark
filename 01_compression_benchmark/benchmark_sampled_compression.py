@@ -21,7 +21,7 @@ import numpy as np
 import dask.array as da
 from dask.diagnostics import Profiler
 import zarr
-from utils import *
+from ..utils import *
 
 def main(args=None, verbose=True):
     if args is None:
