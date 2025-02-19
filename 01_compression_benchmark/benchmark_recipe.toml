@@ -1,0 +1,47 @@
+[[compressors]]
+name = "gzip"
+level = [1,5,9]
+
+[[compressors]]
+name = "bzip2"
+level = [1,5,9]
+
+[[compressors]]
+name = "lzma"
+level = [1,5,9]
+
+[[compressors]]
+name = "zlib"
+level = [1,5,9]
+
+[[compressors]]
+name = "lz4"
+level = [1,]
+
+[[compressors]]
+name = "zstd"
+level = [1,11,22]
+
+[[compressors]]
+name = "blosc-zlib"
+level = [1,5,9]
+
+[[compressors]]
+name = "blosc-lz4"
+level = [1,5,9]
+
+[[compressors]]
+name = "blosc-zstd"
+level = [1,5,9]
+
+[[filters]]
+name = []
+
+[[filters]]
+name = ["FixedScaleOffset"]
+
+[[filters]]
+name = ["Shuffle"]
+
+[[filters]]
+name = ["FixedScaleOffset", "Shuffle"]
