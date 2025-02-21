@@ -18,6 +18,7 @@ The following benchmark datasets are used in this project:
  - Embryo cells in a well
  - Birefringent tissue
 
+We place the data at `data/embryo.ome.zarr` and `data/birefringent-data.ome.zarr`.
 To get data, contact me.
 
 ### Environment
