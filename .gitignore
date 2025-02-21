@@ -1,6 +1,9 @@
+# vscode
 .vscode/
+# python
 __pycache__
+# data
+data/
+# execution results
 output/
-
-# figure
 *.svg
