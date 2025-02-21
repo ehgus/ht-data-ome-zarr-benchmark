@@ -8,7 +8,10 @@ import ome_zarr
 import ome_zarr.io
 import ome_zarr.writer
 import ome_zarr.format
-from ..utils import *
+import sys
+from os import path
+sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+from utils import *
 import os
 from TCFile import TCFile
 import numpy as np
@@ -84,7 +87,7 @@ def main():
         "-c","--compressor",
         type=str,
         required=False,
-        default="zstd-3",
+        default="zstd-19",
         help=(
             "Target compressor. Examples: 'gzip-5', 'blosc-zstd-3', or 'none' for no compression."
         ),

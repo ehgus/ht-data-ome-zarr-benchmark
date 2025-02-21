@@ -21,7 +21,10 @@ import numpy as np
 import dask.array as da
 from dask.diagnostics import Profiler
 import zarr
-from ..utils import *
+import sys
+from os import path
+sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+from utils import *
 
 def main(args=None, verbose=True):
     if args is None:

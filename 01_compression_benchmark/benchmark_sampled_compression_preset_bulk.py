@@ -17,7 +17,10 @@ import argparse
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
-from ..utils import *
+import sys
+from os import path
+sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+from utils import *
 import zarr
 import dask.array as da
 from dask.diagnostics import Profiler

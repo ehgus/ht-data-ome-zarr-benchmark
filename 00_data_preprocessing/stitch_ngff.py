@@ -105,7 +105,10 @@ def fuse_ngff_files(src_ngff_pathes, dst_ngff_path, compressor, filters):
 import argparse
 import os
 from glob import glob
-from ..utils import configure_compression, configure_filters
+import sys
+from os import path
+sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+from utils import *
 def main():    
     parser = argparse.ArgumentParser(
         prog='simple OME-Zarr stitcher',

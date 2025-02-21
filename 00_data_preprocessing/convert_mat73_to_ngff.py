@@ -82,7 +82,10 @@ def calculate_translate(src_mat_path):
 
 
 import os
-from ..utils import configure_compression, configure_filters
+import sys
+from os import path
+sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+from utils import *
 # command-line handler
 def main():
     import argparse
