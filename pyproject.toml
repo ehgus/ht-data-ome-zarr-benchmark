@@ -9,6 +9,7 @@ dependencies = [
     "h5py>=3.12.1",
     "hypercorn>=0.17.3",
     "ipykernel>=6.29.5",
+    "matplotlib>=3.10.0",
     "multiview-stitcher>=0.1.19",
     "napari-ome-zarr>=0.6.1",
     "napari-tomocube-data-viewer>=2024.10.0",

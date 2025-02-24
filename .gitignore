@@ -2,8 +2,7 @@
 .vscode/
 # python
 __pycache__
-# data
+# data path
 data/
-# execution results
 output/
-*.svg
+figure/
