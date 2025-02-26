@@ -38,10 +38,10 @@ level = [1,5,9]
 name = []
 
 [[filters]]
-name = ["FixedScaleOffset"]
+name = ["BitRound-14"]
 
 [[filters]]
 name = ["Shuffle"]
 
 [[filters]]
-name = ["FixedScaleOffset", "Shuffle"]
+name = ["BitRound-14", "Shuffle"]
