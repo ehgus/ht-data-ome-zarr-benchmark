@@ -34,7 +34,7 @@ def configure_compression(compressor):
 
 def configure_filters(filter_args):
     """Configure the filters with the specified parameters."""
-    from numcodecs import FixedScaleOffset, Quantize, Delta, Shuffle
+    from numcodecs import FixedScaleOffset, Quantize, Delta, Shuffle, BitRound
     from utils.spatial_filter import SpatialDelta
     filters = []
     for filter_name in filter_args:
@@ -48,6 +48,9 @@ def configure_filters(filter_args):
         elif filter_name.startswith("Shuffle"):
             elementsize = int(filter_name.split("-")[1]) if len(filter_name.split("-")) > 1 else 4
             filters.append(Shuffle(elementsize=elementsize))
+        elif filter_name.startswith("BitRound"):
+            keepbits = int(filter_name.split("-")[1]) if len(filter_name.split("-")) > 1 else (1 + 8 + 14) # float 32 w/ 4 digit accuracy
+            filters.append(BitRound(keepbits=keepbits))
         else:
             raise ValueError(f"Unknown filter: {filter_name}")
     return filters
