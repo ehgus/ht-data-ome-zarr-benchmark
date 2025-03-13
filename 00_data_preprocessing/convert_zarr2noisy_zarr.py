@@ -30,13 +30,16 @@ def add_random_noise(input_zarr_path, output_zarr_path, noise_range=(-5e-5, 5e-5
         dimension_separator = '/'
     )
     # Generate random noise
-    noise = da.random.uniform(noise_range[0], noise_range[1], input_zarr.shape, chunks=input_zarr.chunks)
-    # Add noise to the data
-    noisy_data = input_zarr + noise
+    if noise_range is not None:
+        noise = da.random.uniform(noise_range[0], noise_range[1], input_zarr.shape, chunks=input_zarr.chunks)
+        # Add noise to the data
+        output_data = input_zarr + noise
+    else:
+        output_data = input_zarr
     # Store the noisy data in the output Zarr file
     print("Start conversion...")
     with ProgressBar():
-        noisy_data.store(output_zarr, lock = False)
+        output_data.store(output_zarr, lock = False)
 
 import argparse
 import os
@@ -89,7 +92,11 @@ def main():
     os.makedirs(os.path.dirname(dst_zarr_path), exist_ok=True)
 
     # Add noise to the Zarr file
-    add_random_noise(src_zarr_path, dst_zarr_path, noise_range=(args.min_noise, args.max_noise), compressor = compressor, filters = filters)
+    if args.max_noise <= 0:
+        noise_range = None
+    else:
+        noise_range=(args.min_noise, args.max_noise)
+    add_random_noise(src_zarr_path, dst_zarr_path, noise_range=noise_range, compressor = compressor, filters = filters)
 
 if __name__ == "__main__":
     main()
