@@ -14,7 +14,7 @@ for ( $i = 1; $i -le 20; $i++ ) {
         Write-Output "Writing $dst_zarr_path"
 	    Start-Job -ScriptBlock { # Invoke-Command
             param ($src_mat_path, $dst_zarr_path)
-            C:\Users\labdo\.miniforge3\envs\dm312\python.exe "C:/Users/labdo/Desktop/02_data management/12_code/01_compression_benchmark/convert_mat73_to_ngff.py" $src_mat_path $dst_zarr_path "-c" "zstd-19"
+            uv run python "00_data_preprocessing/convert_mat73_to_ngff.py" $src_mat_path $dst_zarr_path "-c" "zstd-19"
         } -ArgumentList $src_mat_path, $dst_zarr_path
     }
 }
