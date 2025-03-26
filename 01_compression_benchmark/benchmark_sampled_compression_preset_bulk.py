@@ -96,11 +96,10 @@ if __name__ == "__main__":
             filters = filters,
             store = zarr.MemoryStore()
         )
-        with Profiler() as prof:
-            da.store(src_sampled_array, z, lock=False, compute=True, return_stored=False, scheduler="threads")
-        # if key starts with "from-npy-stack" : [load array from disk](https://github.com/dask/dask/blob/80b0737c9ad5848fa779efb8f841b9fa35c8ff36/dask/array/core.py#L5793)
-        # if key starts with "store-map": [zip data](https://github.com/dask/dask/blob/80b0737c9ad5848fa779efb8f841b9fa35c8ff36/dask/array/core.py#L5793)
-        elapsed_compression_time = sum(map(lambda rst: rst.end_time - rst.start_time if rst.key[0].startswith("store-map") else 0, prof.results))
+        start_time = default_timer()
+        da.store(src_sampled_array, z, lock=False, compute=True, return_stored=False, scheduler="threads")
+        end_time = default_timer()
+        elapsed_compression_time = end_time - start_time
         src_size = z.nbytes
         compressed_size = z.nbytes_stored
         ratio = src_size / compressed_size
