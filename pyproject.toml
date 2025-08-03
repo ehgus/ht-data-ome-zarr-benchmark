@@ -20,6 +20,7 @@ dependencies = [
     "pandas>=2.2.3",
     "paramiko>=3.5.1",
     "pyqt5-qt5==5.15.2",
+    "scipy>=1.15.1",
     "tcfile>=2024.11.0",
     "tqdm>=4.67.1",
     "zarr>=2,<3",
