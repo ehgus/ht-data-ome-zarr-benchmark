@@ -6,6 +6,7 @@
 import zarr
 import ome_zarr
 import ome_zarr.io
+import dask.array as da
 import ome_zarr.writer
 import ome_zarr.format
 import sys
@@ -16,7 +17,7 @@ import os
 from TCFile import TCFile
 import numpy as np
 
-def tcf_to_omezarr(tcf_file_path, output_path, compressor, filters):
+def tcf_to_omezarr(tcf_file_path, output_path, compressor, filters, noise_range = None):
     """
     Convert TCF to ome-zarr
 
@@ -42,6 +43,9 @@ def tcf_to_omezarr(tcf_file_path, output_path, compressor, filters):
             continue
         tcf_array = tcf_data.asdask() # t, c, z, y, x
         tcf_array = tcf_array.reshape(tcf_array.shape[0],1,*tcf_array.shape[1:]) # t, c, z, y, x
+        if data_id == "3D" and noise_range is not None:
+            noise = da.random.uniform(noise_range[0], noise_range[1], tcf_array.shape, chunks=tcf_array.chunks)
+            tcf_array += noise
         # create zarr
         data_group = zarr.open_group(os.path.join(output_path,data_name+".ome.zarr"),mode='w')
         zarray_data = data_group.require_dataset(
@@ -84,6 +88,18 @@ def main():
     parser.add_argument("src", type=str, help="Path of TCF file.")
     parser.add_argument("dst", type=str, help="Path to the save OME-Zarr file.")
     parser.add_argument(
+        "--min-noise",
+        type=float,
+        default=-5e-5,
+        help="Minimum noise value to add (default: -5e-5)."
+    )
+    parser.add_argument(
+        "--max-noise",
+        type=float,
+        default=5e-5,
+        help="Maximum noise value to add (default: 5e-5)."
+    )
+    parser.add_argument(
         "-c","--compressor",
         type=str,
         required=False,
@@ -109,8 +125,12 @@ def main():
     filters = configure_filters(args.filters)
     if not os.path.exists(src_tcf):
         raise FileNotFoundError(f"Source file '{src_tcf}' not found.")
+    if args.max_noise <= 0:
+        noise_range = None
+    else:
+        noise_range=(args.min_noise, args.max_noise)
     os.makedirs(dst_dir, exist_ok=True)
-    tcf_to_omezarr(src_tcf, dst_dir, compressor, filters)
+    tcf_to_omezarr(src_tcf, dst_dir, compressor, filters, noise_range = noise_range)
 
 if __name__ == "__main__":
     main()
