@@ -61,3 +61,8 @@ The results of the benchmarks will be documented here.
 There was a case that `stitch_ngff.py` does not properly work in "Windows 10/11" returning 'OSError'.
 A workaround is to use "Windows subsystem for linux, version 2".
 File I/O handler of Windows seems not perfectly suitable with Zarr I/O operations.
+
+If you are using WSL2 with nvCOMP, you probably need the following environment variable to call `libcuda.so`.
+```bash
+export LD_LIBRARY_PATH=/usr/lib/wsl/lib/
+```

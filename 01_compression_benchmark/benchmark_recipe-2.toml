@@ -1,0 +1,43 @@
+[[compressors]]
+name = "LOSSY_ZFP"
+level = [0] # meaningless, but required for compatibility
+
+[[compressors]]
+name = "PCodec"
+level = [0,6,12]
+
+[[compressors]]
+name = "Brotli"
+level = [0,6,11]
+
+[[compressors]]
+name = "Snappy"
+level = [0] # meaningless, but required for compatibility
+
+[[compressors]]
+name = "LOSSLESS_ZFP"
+level = [0] # meaningless, but required for compatibility
+
+[[compressors]]
+name = "Zlibng"
+level = [1,5,9]
+
+[[compressors]]
+name = "NvcompLZ4"
+level = [0] # meaningless, but required for compatibility
+
+[[compressors]]
+name = "NvcompGDeflate"
+level = [1,3,5]
+
+[[filters]]
+name = []
+
+[[filters]]
+name = ["BitRound-14"]
+
+[[filters]]
+name = ["Shuffle"]
+
+[[filters]]
+name = ["BitRound-14", "Shuffle"]

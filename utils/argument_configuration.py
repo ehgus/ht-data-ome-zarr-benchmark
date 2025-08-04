@@ -2,7 +2,10 @@
 
 def configure_compression(compressor):
     """Configure the compressor with the specified parameters."""
-    from numcodecs import Blosc, GZip, BZ2, LZMA, LZ4, Zlib, Zstd
+    from numcodecs import Blosc, GZip, BZ2, LZMA, LZ4, Zlib, Zstd, PCodec, ZFPY
+    import zfpy
+    from imagecodecs.numcodecs import Brotli, Snappy, Zlibng
+    from utils.nvidia_compressor import NvcompLZ4, NvcompGDeflate
     if compressor == "none":
         return None  # No compression
     elif compressor.startswith("blosc"):
@@ -25,16 +28,37 @@ def configure_compression(compressor):
         elif codec == "lz4":
             return LZ4(acceleration=level)
         elif codec == "zlib":
+            # deflate compression
             return Zlib(level=level)
         elif codec == "zstd":
             return Zstd(level=level)
+        elif codec == "PCodec":
+            return PCodec(level=level)
+        elif codec == "Brotli":
+            return Brotli(level=level)
+        elif codec == "Snappy":
+            return Snappy()
+        elif codec == "LOSSLESS_ZFP":
+            # If none of these arguments is specified, then reversible mode is used.
+            # See https://zfp.readthedocs.io/en/release1.0.1/python.html#zfpy.compress_numpy
+            return ZFPY()
+        elif codec == "LOSSY_ZFP":
+            return ZFPY(mode=zfpy.mode_fixed_precision, precision=14)
+        # hardware accelerated codecs
+        elif codec == "Zlibng":
+            # Vectorized Zlib implementation
+            return Zlibng(level=level)
+        elif codec == "NvcompLZ4":
+            return NvcompLZ4()
+        elif codec == "NvcompGDeflate":
+            return NvcompGDeflate(level=level)
         else:
             raise ValueError(f"Unsupported compressor: {codec}")
 
 
 def configure_filters(filter_args):
     """Configure the filters with the specified parameters."""
-    from numcodecs import FixedScaleOffset, Quantize, Delta, Shuffle, BitRound
+    from numcodecs import FixedScaleOffset, Delta, Shuffle, BitRound
     from utils.spatial_filter import SpatialDelta
     filters = []
     for filter_name in filter_args:
