@@ -7,3 +7,4 @@ uv run python $benchmark_code $benchmark_recipe data/test-tissue-on-8G output/be
 uv run python $benchmark_code $benchmark_recipe data/test-tissue-off-8G output/bench-tissue-off-8G
 uv run python $benchmark_code $benchmark_recipe data/test-organoid-8G output/bench-organoid-8G
 uv run python $benchmark_code $benchmark_recipe data/test-HeLa-8G output/bench-HeLa-8G
+uv run python $benchmark_code $benchmark_recipe data/test-bacteria-8G output/bench-bacteria-8G
