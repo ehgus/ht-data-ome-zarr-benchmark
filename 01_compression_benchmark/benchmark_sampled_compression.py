@@ -88,9 +88,16 @@ def main(args=None, verbose=True):
         compression_speed = src_size / elapsed_compression_time
     # Check the decompression speed
     # decompression does not use dask
-    start_time = default_timer()
-    np_arr = np.array(z, dtype = z.dtype)
-    end_time = default_timer()
+    if compression is not None and 'nvcomp' in compression.codec_id:
+        np_arr = np.zeros(z.shape, dtype = z.dtype)
+        start_time = default_timer()
+        np_arr[:,:,:,:,slice(0,-1)] = np.array(z[:,:,:,:,slice(0,-1)], dtype = z.dtype)
+        np_arr[:,:,:,:,-1] = np.array(z[:,:,:,:,-1], dtype = z.dtype)
+        end_time = default_timer()
+    else:
+        start_time = default_timer()
+        np_arr = np.array(z, dtype = z.dtype)
+        end_time = default_timer()
     elapsed_decompression_time = end_time - start_time
     
     if elapsed_decompression_time == 0:

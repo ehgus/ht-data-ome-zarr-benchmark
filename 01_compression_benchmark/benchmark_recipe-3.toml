@@ -1,0 +1,17 @@
+[[compressors]]
+name = "PCodec"
+level = [0,6,12]
+
+[[compressors]]
+name = "LOSSY_ZFP"
+level = [0] # meaningless, but required for compatibility
+
+[[compressors]]
+name = "LOSSLESS_ZFP"
+level = [0] # meaningless, but required for compatibility
+
+[[filters]]
+name = ["Squeeze"]
+
+[[filters]]
+name = ["Squeeze", "BitRound-14"]

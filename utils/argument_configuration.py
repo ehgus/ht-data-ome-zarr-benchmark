@@ -43,7 +43,7 @@ def configure_compression(compressor):
             # See https://zfp.readthedocs.io/en/release1.0.1/python.html#zfpy.compress_numpy
             return ZFPY()
         elif codec == "LOSSY_ZFP":
-            return ZFPY(mode=zfpy.mode_fixed_precision, precision=14)
+            return ZFPY(mode=zfpy.mode_fixed_precision, precision=2**-14)
         # hardware accelerated codecs
         elif codec == "Zlibng":
             # Vectorized Zlib implementation
@@ -60,13 +60,16 @@ def configure_filters(filter_args):
     """Configure the filters with the specified parameters."""
     from numcodecs import FixedScaleOffset, Delta, Shuffle, BitRound
     from utils.spatial_filter import SpatialDelta
+    from utils.squeeze_filter import Squeeze
     filters = []
     for filter_name in filter_args:
         if filter_name == "FixedScaleOffset":
             filters.append(FixedScaleOffset(offset=0, scale=1e4, dtype="f4", astype="i2")) # (-3.2768, 3.2768)
         elif filter_name == "Delta":
             filters.append(Delta(dtype="i2"))
-        elif filter_name == "SpatialDelta":
+        elif filter_name == "Squeeze":
+            filters.append(Squeeze())
+        elif filter_name.startswith("SpatialDelta"):
             axes = eval(filter_name.split("-")[1]) if len(filter_name.split("-")) > 1 else (0,)
             filters.append(SpatialDelta(axes = axes, dtype = "i2"))
         elif filter_name.startswith("Shuffle"):

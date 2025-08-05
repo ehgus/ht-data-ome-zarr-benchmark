@@ -1,21 +1,10 @@
-[[compressors]]
-name = "LOSSY_ZFP"
-level = [0] # meaningless, but required for compatibility
-
-[[compressors]]
-name = "PCodec"
-level = [0,6,12]
-
-[[compressors]]
-name = "Brotli"
-level = [0,6,11]
+# [[compressors]]
+# name = "Brotli"
+# # not compatible with BitRounding + shuffling. (Unknown error emitted)
+# level = [0,6,11]
 
 [[compressors]]
 name = "Snappy"
-level = [0] # meaningless, but required for compatibility
-
-[[compressors]]
-name = "LOSSLESS_ZFP"
 level = [0] # meaningless, but required for compatibility
 
 [[compressors]]
