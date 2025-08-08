@@ -50,7 +50,7 @@ For a quick execution, run the following script or jupyter notebook sequentially
     - `benchmark_sampled_compression.py`: Return single benchmark result for a specific encoding option.
     - `benchmark_sampled_compression_preset_bulk.py`: Run multiple benchmark sequentially and return the result as a table. The example of benchmarking list is at `01_compression_benchmark/benchmark_recipe.toml`.
  - `02_remote_access` : Not described in article. Simple server to validate the remote access of OME-Zarr file through network.
-    - `simple-server.py`: Simple OME-Zarr server. It is slow because it does not support parallel transfer. The running example is at `02_remote_access\example\simple-server.hs`.
+    - `simple-server.py`: Simple OME-Zarr server. It is slow because it does not support parallel transfer. The running example is at `02_remote_access\example\simple-server.sh`.
  - `03_visualization` : Notebook of visualizing benchmark results
     - `view_compression_benchmark.ipynb`: Visualize and save the analsys results. They are used to draw article's figures.
     - `view_slice_image.ipynb`: Save the sections of holotomographic data as images.
