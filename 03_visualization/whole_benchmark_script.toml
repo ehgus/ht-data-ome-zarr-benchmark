@@ -1,0 +1,17 @@
+
+table_name = [
+    "Bacteria",
+    "HeLa cell",
+    "Embryo",
+    "Organoid",
+    "Tissue",
+    "Tisse (off-diagonal)"
+]
+data_path = [
+    "output/merged-bacteria-8G.csv",
+    "output/merged-HeLa-8G.csv",
+    "output/merged-embryo-8G.csv",
+    "output/merged-organoid-8G.csv",
+    "output/merged-tissue-on-8G.csv",
+    "output/merged-tissue-off-8G.csv"
+]
