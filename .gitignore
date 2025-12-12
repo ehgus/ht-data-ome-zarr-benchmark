@@ -1,6 +1,7 @@
 # vscode
 .vscode/
 # python
+.venv
 __pycache__
 # data path
 data/
